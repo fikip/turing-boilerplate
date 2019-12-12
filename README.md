@@ -3,13 +3,15 @@ This is a boilerplate repository for future Turing Tech front-end projects.
 This project currently includes an example GraphQL setup (w/ cookie Auth), a global state management setup & REST cookie auth setup.
 You probably won't need all of the above. See sections below for steps on how to slim down the app.
 
+Deployed on [zeit](now.sh) using `now.sh`, link [here](https://turing-boilerplate.now.sh/).
+
 ## Technologies used
 - ▲ Next.js
-- 💅Styled-components
+- 💅 Styled-components
 - ∞ Immer
-- 🐻Zustand
-- ⒶApollo
-- 🎀Eslint + Prettier
+- 🐻 Zustand
+- Ⓐ Apollo
+- 🎀 Eslint + Prettier
 
 ## Using GraphQL?
 There are examples on how GraphQL integrates with Next.js in `utils/apollo.js`, and the `components/apollo-example/` folder.

@@ -1,7 +1,5 @@
 import React from "react";
 import Layout from "../components/layout";
-import Counter1 from "../components/state-example/Counter1";
-import Counter2 from "../components/state-example/Counter2";
 
 const Home = () => (
   <Layout>
@@ -18,8 +16,6 @@ const Home = () => (
         the `/login` route.
       </li>
     </ol>
-    <Counter1 />
-    <Counter2 />
     <style jsx>{`
       li {
         margin-bottom: 0.5rem;
