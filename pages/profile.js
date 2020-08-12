@@ -1,12 +1,11 @@
 import React from "react";
 import Router from "next/router";
-import fetch from "isomorphic-unfetch";
 import nextCookie from "next-cookies";
 import Layout from "../components/layout";
 import { withAuthSync } from "../utils/auth";
 import getHost from "../utils/get-host";
 
-const Profile = props => {
+const Profile = (props) => {
   const { name, login, bio, avatarUrl } = props.data;
 
   return (
@@ -41,7 +40,7 @@ const Profile = props => {
   );
 };
 
-Profile.getInitialProps = async ctx => {
+Profile.getInitialProps = async (ctx) => {
   const { token } = nextCookie(ctx);
   const apiUrl = getHost(ctx.req) + "/api/profile";
 
@@ -54,8 +53,8 @@ Profile.getInitialProps = async ctx => {
     const response = await fetch(apiUrl, {
       credentials: "include",
       headers: {
-        Authorization: JSON.stringify({ token })
-      }
+        Authorization: JSON.stringify({ token }),
+      },
     });
 
     if (response.ok) {

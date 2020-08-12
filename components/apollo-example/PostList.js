@@ -1,12 +1,11 @@
-import { useQuery } from "@apollo/react-hooks";
-import { NetworkStatus } from "apollo-client";
+import { NetworkStatus, useQuery } from "@apollo/client";
 import ErrorMessage from "./ErrorMessage";
 import PostUpvoter from "./PostUpvoter";
 import ALL_POSTS_QUERY from "../../graphql/queryAllPosts.graphql";
 
 export const allPostsQueryVars = {
   skip: 0,
-  first: 10
+  first: 10,
 };
 
 export default function PostList() {
@@ -17,7 +16,7 @@ export default function PostList() {
       // Setting this value to true will make the component rerender when
       // the "networkStatus" changes, so we are able to know if it is fetching
       // more data
-      notifyOnNetworkStatusChange: true
+      notifyOnNetworkStatusChange: true,
     }
   );
 
@@ -26,7 +25,7 @@ export default function PostList() {
   const loadMorePosts = () => {
     fetchMore({
       variables: {
-        skip: allPosts.length
+        skip: allPosts.length,
       },
       updateQuery: (previousResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) {
@@ -34,9 +33,9 @@ export default function PostList() {
         }
         return Object.assign({}, previousResult, {
           // Append the new posts results to the old one
-          allPosts: [...previousResult.allPosts, ...fetchMoreResult.allPosts]
+          allPosts: [...previousResult.allPosts, ...fetchMoreResult.allPosts],
         });
-      }
+      },
     });
   };
 

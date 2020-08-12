@@ -1,10 +1,8 @@
 import React from "react";
 import Head from "next/head";
-import { ApolloProvider } from "@apollo/react-hooks";
-import { ApolloClient } from "apollo-client";
+import { ApolloClient, ApolloProvider } from "@apollo/client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
-import fetch from "isomorphic-unfetch";
 import Cookies from "js-cookie";
 import { setContext } from "apollo-link-context";
 
@@ -41,7 +39,7 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
   }
 
   if (ssr || PageComponent.getInitialProps) {
-    WithApollo.getInitialProps = async ctx => {
+    WithApollo.getInitialProps = async (ctx) => {
       const { AppTree } = ctx;
 
       // Initialize ApolloClient, add it to the ctx object so
@@ -66,12 +64,14 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
         if (ssr) {
           try {
             // Run all GraphQL queries
-            const { getDataFromTree } = await import("@apollo/react-ssr");
+            const { getDataFromTree } = await import(
+              "@apollo/client/react/ssr"
+            );
             await getDataFromTree(
               <AppTree
                 pageProps={{
                   ...pageProps,
-                  apolloClient
+                  apolloClient,
                 }}
               />
             );
@@ -93,7 +93,7 @@ export function withApollo(PageComponent, { ssr = true } = {}) {
 
       return {
         ...pageProps,
-        apolloState
+        apolloState,
       };
     };
   }
@@ -134,17 +134,17 @@ function createApolloClient(initialState, cookie) {
       ...init,
       headers: {
         ...init.headers,
-        Cookie: cookie
-      }
-    }).then(response => response);
+        Cookie: cookie,
+      },
+    }).then((response) => response);
   };
   const authLink = setContext((_, { headers }) => {
     const token = Cookies.get("token");
     return {
       headers: {
         ...headers,
-        authorization: token ? `Bearer ${token}` : ""
-      }
+        authorization: token ? `Bearer ${token}` : "",
+      },
     };
   });
 
@@ -152,13 +152,13 @@ function createApolloClient(initialState, cookie) {
     uri: "https://api.graph.cool/simple/v1/cixmkt2ul01q00122mksg82pn", // Sample server URL
     credentials: "include", // Additional fetch() options like `credentials` or `headers`
     // credentials: 'same-origin', if your backend server is the same domain or else credentials: 'include' if your backend is a different domain.
-    fetch: enchancedFetch
+    fetch: enchancedFetch,
   });
 
   return new ApolloClient({
     connectToDevTools: typeof window !== "undefined",
     ssrMode: typeof window === "undefined", // Disables forceFetch on the server (so queries are only run once)
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache().restore(initialState)
+    cache: new InMemoryCache().restore(initialState),
   });
 }

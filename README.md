@@ -43,7 +43,7 @@ To remove GraphQL setup, follow these steps:
 - Remove `pages/apolloIndex.js` & `pages/client-only.js`.
 - Remove `graphql-tag` & `import-graphql` from `.babelrc`.
 - Change `dev` script in `package.json` to only contain `next`.
-- Remove `@apollo/react-hooks`, `@apollo/react-ssr`, `apollo-cache-inmemory`, `apollo-client`, `apollo-link-context`, `apollo-link-http`, `graphql`, `graphql-tag`, `babel-plugin-graphql-tag` & `babel-plugin-import-graphql` from `package.json`.
+- Remove `@apollo/client`, `apollo-cache-inmemory`, `apollo-link-context`, `apollo-link-http`, `graphql`, `graphql-tag`, `babel-plugin-graphql-tag` & `babel-plugin-import-graphql` from `package.json`.
 
 Take a look at how cookies are handled in `pages/index.js`, `pages.login.js`, `auth.js`
 
