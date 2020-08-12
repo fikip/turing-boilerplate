@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import fetch from "isomorphic-unfetch";
 import Layout from "../components/layout";
 import { login } from "../utils/auth";
 
@@ -17,7 +16,7 @@ function Login() {
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username })
+        body: JSON.stringify({ username }),
       });
       if (response.status === 200) {
         const { token } = await response.json();
@@ -38,7 +37,7 @@ function Login() {
       const { response } = error;
       setUserData(
         Object.assign({}, userData, {
-          error: response ? response.statusText : error.message
+          error: response ? response.statusText : error.message,
         })
       );
     }
@@ -55,7 +54,7 @@ function Login() {
             id="username"
             name="username"
             value={userData.username}
-            onChange={event =>
+            onChange={(event) =>
               setUserData(
                 Object.assign({}, userData, { username: event.target.value })
               )

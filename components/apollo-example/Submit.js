@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import gql from "graphql-tag";
 import { allPostsQueryVars } from "./PostList";
 import ALL_POSTS_QUERY from "../../graphql/queryAllPosts.graphql";
@@ -18,7 +18,7 @@ const CREATE_POST_MUTATION = gql`
 export default function Submit() {
   const [createPost, { loading }] = useMutation(CREATE_POST_MUTATION);
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const form = event.target;
     const formData = new window.FormData(form);
@@ -31,18 +31,18 @@ export default function Submit() {
       update: (proxy, { data: { createPost } }) => {
         const data = proxy.readQuery({
           query: ALL_POSTS_QUERY,
-          variables: allPostsQueryVars
+          variables: allPostsQueryVars,
         });
         // Update the cache with the new post at the top of the
         proxy.writeQuery({
           query: ALL_POSTS_QUERY,
           data: {
             ...data,
-            allPosts: [createPost, ...data.allPosts]
+            allPosts: [createPost, ...data.allPosts],
           },
-          variables: allPostsQueryVars
+          variables: allPostsQueryVars,
         });
-      }
+      },
     });
   };
 

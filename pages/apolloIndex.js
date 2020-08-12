@@ -5,7 +5,7 @@ import Submit from "../components/apollo-example/Submit";
 import PostList from "../components/apollo-example/PostList";
 import { withApollo } from "../utils/apollo";
 
-const IndexPage = props => (
+const IndexPage = (props) => (
   <App>
     <Header />
     <div className="container">
